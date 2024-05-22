@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import Split from "react-split";
 import generateHexColor from "./utils/generateHexColor";
+import { Resizable, ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 
 const RecursivePartitioning = ({ initialColor, onRemove }: any) => {
   const [isSplit, setIsSplit] = useState(false);
   const [direction, setDirection] = useState("");
-  const [colors, setColors] = useState([initialColor, generateHexColor()]);
+  const [colors] = useState([initialColor, generateHexColor()]);
   const [childKeys, setChildKeys] = useState([0, 1]);
 
   const handleSplit = (dir: any) => {
@@ -43,29 +45,33 @@ const RecursivePartitioning = ({ initialColor, onRemove }: any) => {
         display: "flex",
         height: "100%",
         width: "100%",
-        flexDirection: `${direction === "horizontal" ? "row" : "column"}`,
+        flexDirection: `${direction === "horizontal" ? "column" : "row"}`,
       }}
       sizes={[50, 50]}
       minSize={100}
       gutterSize={10}
-      gutterStyle={(dimension, index) => ({ height: "0", width: "0" })}
+      gutterStyle={() => ({ height: "0", width: "0" })}
       snapOffset={10}
       cursor={direction === "horizontal" ? "col-resize" : "row-resize"}
     >
-      <RecursivePartitioning
-        initialColor={colors[0]}
-        onRemove={() => {
-          setChildKeys([childKeys[1]]);
-          setIsSplit(false);
-        }}
-      />
-      <RecursivePartitioning
-        initialColor={colors[1]}
-        onRemove={() => {
-          setChildKeys([childKeys[0]]);
-          setIsSplit(false);
-        }}
-      />
+      <ResizableBox width={500} height={500} className="w-full h-full" draggableOpts={{ grid: [25, 25] }}>
+        <RecursivePartitioning
+          initialColor={colors[0]}
+          onRemove={() => {
+            setChildKeys([childKeys[1]]);
+            setIsSplit(false);
+          }}
+        />
+      </ResizableBox>
+      <ResizableBox width={500} height={500} className="w-full h-full" draggableOpts={{ grid: [25, 25] }}>
+        <RecursivePartitioning
+          initialColor={colors[1]}
+          onRemove={() => {
+            setChildKeys([childKeys[0]]);
+            setIsSplit(false);
+          }}
+        />
+      </ResizableBox>
     </Split>
   );
 };
