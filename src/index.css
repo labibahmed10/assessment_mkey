@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* --tw-text-opacity: 1; */
+  /* color-scheme: light; */
+  /* color: rgb(248 255 252 / var(--tw-text-opacity)); */
+  /* background-color: #cfcfcf; */
+}
+
+@layer utilities {
+  .textStyle {
+    @apply rounded-md text-slate-50 flex justify-center items-center text-center size-10 font-semibold text-lg cursor-pointer;
+  }
+}

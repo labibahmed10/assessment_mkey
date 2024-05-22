@@ -1,7 +1,9 @@
+import AlphabetTileInteraction from "./components/Alphabet-tile-interaction/AlphabetTileInteraction";
+
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <AlphabetTileInteraction />
     </>
   );
 }
