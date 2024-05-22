@@ -6,7 +6,7 @@ const AlphabetTileInteraction = () => {
 
   const reWriteAlphabet = (letter: string) => {
     const concatedString = output + letter;
-    const result = concatedString.replace(/(.)\1\1/g, (match) => "_".repeat(match.length));
+    const result = concatedString.replace(/(.)\1\1/g, "_");
     setOutput(result);
   };
 
